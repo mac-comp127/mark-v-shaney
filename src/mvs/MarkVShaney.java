@@ -14,7 +14,11 @@ import java.util.stream.Stream;
 @SuppressWarnings("WeakerAccess")
 public class MarkVShaney {
     private final int contextSize;
-    private final Map<List<String>, WordChoice> chain = new HashMap<>();
+    // TODO: Declare an instance variable chain that is:
+    //       - a Map
+    //       - with List<String> keys
+    //       - and WordChoice values
+    //       - intiailized to a new HashMap.
 
     /**
      * Starts the generator with an empty Markov chain.
@@ -34,12 +38,12 @@ public class MarkVShaney {
      * Registers nextWord as a possible choice for the given context.
      */
     public void addChoice(List<String> context, String nextWord) {
-        WordChoice choices = chain.get(context);
-        if (choices == null) {
-            choices = new WordChoice();
-            chain.put(List.copyOf(context), choices);
-        }
-        choices.addChoice(nextWord);
+        // TODO: Find the existing WordChoice for the given context.
+        //       If there is not one already:
+        //       - create it and
+        //       - add it to the chain, using List.copyOf() to make
+        //         an unmodifiable defensive copy of the context.
+        //       Now add nextWord to the WordChoice object you found/created.
     }
 
     /**
@@ -47,12 +51,10 @@ public class MarkVShaney {
      * contains no options for the given context.
      */
     public String chooseNextWord(List<String> context) {
-        WordChoice choices = chain.get(context);
-        if (choices == null) {
-            return null;
-        } else {
-            return choices.getRandomChoice();
-        }
+        // TODO: Look up the WordChoice for the given context, and return a random choice from that
+        //       object (check the methods of WordChoice!), or return null if there was no matching
+        //       context.
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     /**
@@ -68,25 +70,28 @@ public class MarkVShaney {
      * Reads all words from the given text and adds them to the Markov chain.
      */
     public void readText(InputStream text) {
-        ChainWalker walker = new ChainWalker(this);
-        new Scanner(text, StandardCharsets.UTF_8).tokens()
-            .forEach(walker::addNext);
+        // TODO: Create a ChainWalker attached to this MarkVShaney.
+        // TODO: Create a scanner using:  new Scanner(text, StandardCharsets.UTF_8)
+        //       ...and call its tokens() method to get a stream of words
+        //       ...and use the forEach() method of stream to call walker.addNext() on each word
     }
 
     /**
      * Randomly generates text using the Markov chain.
      */
     public Stream<String> generate() {
-        ChainWalker walker = new ChainWalker(this);
-        return Stream.generate(walker::chooseNext)
-            .takeWhile(Objects::nonNull);
+        // TODO: Create a ChainWalker attached to this MarkVShaney.
+        // TODO: Use the Stream.generate() method to stream the results of calling
+        //       walker.chooseNext() over and over, then use takeWhile() to stop
+        //       when it returns null.
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     @Override
     public String toString() {
         return "MarkVShaney{"
             + "contextSize=" + contextSize
-            + ", chain=" + chain
+//            + ", chain=" + chain  //TODO: uncomment when you've create the chain instance variable
             + '}';
     }
 

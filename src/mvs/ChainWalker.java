@@ -20,10 +20,9 @@ class ChainWalker {
      * Updates the recent context with the new word, e.g. “one fish” → “fish two” → “two fish.”
      */
     private void shiftIntoContext(String word) {
-        if (context.size() >= mvs.getContextSize()) {
-            context.remove(0);
-        }
-        context.add(word);
+        // TODO: If the size of the current context is already as large as the mvs’s context size,
+        //       then remove the first (oldest) element of the context.
+        // TODO: Add the new word to the end of the context
     }
 
     /**
