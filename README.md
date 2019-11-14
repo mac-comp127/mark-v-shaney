@@ -71,3 +71,7 @@ Tests to add:
 By the time you are done with these tests, you should have no more TODOs left in the source code!
 
 All passing? Try running the `MarkVShaney` class. Its main method reads the text several classic books and scrambles them!
+
+Note: IntelliJ might put each paragraph all on one line, with no line breaks. If you are seeing this, click the “soft wrap” button next to the output text:
+
+<img src="doc/images/line-wrap-off.png" style="width: 49%"> <img src="doc/images/line-wrap-on.png" style="width: 49%">
