@@ -2,37 +2,33 @@ package mvs;
 
 import java.util.*;
 
+/**
+ * Holds a collection of words to choose from, and allows clients to select one at random.
+ */
 final class WordChoice {
     private static final Random rand = new Random();
 
     private final List<String> choices = new ArrayList<>();
 
+    /**
+     * Returns all the words available to choose from.
+     */
     public List<String> getChoices() {
         return Collections.unmodifiableList(choices);
     }
 
+    /**
+     * Chooses one of the available words at random.
+     */
     public String getRandomChoice() {
         return choices.get(rand.nextInt(choices.size()));
     }
 
-    public boolean isEmpty() {
-        return choices.isEmpty();
-    }
-
+    /**
+     * Adds a new possible choice.
+     */
     public void addChoice(String choice) {
         choices.add(choice);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        WordChoice that = (WordChoice) o;
-        return Objects.equals(choices, that.choices);
     }
 
     @Override
