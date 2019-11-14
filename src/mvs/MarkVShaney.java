@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 @SuppressWarnings("WeakerAccess")
 public class MarkVShaney {
     private final int contextSize;
+    private final boolean includeWhitespace;
     // TODO: Declare an instance variable chain that is:
     //       - a Map
     //       - with List<String> keys
@@ -22,9 +23,17 @@ public class MarkVShaney {
 
     /**
      * Starts the generator with an empty Markov chain.
+     *
+     * @param contextSize
+     *      The number of preceding words to keep as context when looking up the next word.
+     * @param includeWhitespace
+     *      If true, include surrounding whitespace in the words so that the Markov chain generates
+     *      paragraph breaks. If false, the chain strips all whitespace and includes only bare words.
      */
-    public MarkVShaney(int contextSize) {
+    public MarkVShaney(int contextSize, boolean includeWhitespace) {
         this.contextSize = contextSize;
+        this.includeWhitespace = includeWhitespace;
+
     }
 
     /**
@@ -63,17 +72,13 @@ public class MarkVShaney {
     public void readText(String text) {
         readText(
             new ByteArrayInputStream(
-                text.getBytes(StandardCharsets.UTF_8)),
-            false);
+                text.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
      * Reads all words from the given text and adds them to the Markov chain.
-     *
-     * @param includeSpaces If true, include surrounding whitespace in the words
-     *                      so that the Markov chain generates paragraph breaks.
      */
-    public void readText(InputStream text, boolean includeSpaces) {
+    public void readText(InputStream text) {
         // TODO: Create a ChainWalker attached to this MarkVShaney.
         // TODO: The code below creates a Scanner that respects the includeSpaces flag.
         //       Call its tokens() method to get a stream of words,
@@ -81,7 +86,7 @@ public class MarkVShaney {
         //       to call walker.addNext() on each word
 
         new Scanner(text, StandardCharsets.UTF_8)
-            .useDelimiter(includeSpaces ? "(?<!\\s)(?=\\s)" : "\\s+");
+            .useDelimiter(includeWhitespace ? "(?<!\\s)(?=\\s)" : "\\s+");
     }
 
     /**
@@ -104,7 +109,7 @@ public class MarkVShaney {
     }
 
     public static void main(String[] args) throws IOException {
-        MarkVShaney mvs = new MarkVShaney(2);
+        MarkVShaney mvs = new MarkVShaney(2, true);
         for (String bookName : List.of(
             "metamorphasis",
             "moby-dick",
@@ -112,7 +117,7 @@ public class MarkVShaney {
             "sense-and-sensibility"
         )) {
             System.out.println("Reading " + bookName);
-            mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"), true);
+            mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
         }
         mvs.generate()
             .limit(1000000)

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class MarkVShaneyTest {
-    private MarkVShaney mvs = new MarkVShaney(2);
+    private MarkVShaney mvs = new MarkVShaney(2, false);
 
 //    @Test
 //    void handlesInitialContext() {
