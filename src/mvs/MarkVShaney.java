@@ -111,7 +111,7 @@ public class MarkVShaney {
     public static void main(String[] args) throws IOException {
         MarkVShaney mvs = new MarkVShaney(2, true);
         for (String bookName : List.of(
-            "metamorphasis",
+            "metamorphosis",
             "moby-dick",
             "prince-and-pauper",
             "sense-and-sensibility"
