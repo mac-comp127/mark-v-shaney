@@ -74,4 +74,4 @@ All passing? Try running the `MarkVShaney` class. Its main method reads the text
 
 Note: IntelliJ might put each paragraph all on one line, with no line breaks. If you are seeing this, click the “soft wrap” button next to the output text:
 
-<img src="doc/images/line-wrap-off.png" style="width: 49%"> <img src="doc/images/line-wrap-on.png" style="width: 49%">
+<img src="doc/images/line-wrap-off.png" width="48%"> <img src="doc/images/line-wrap-on.png" width="48%">
