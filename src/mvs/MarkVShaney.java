@@ -63,17 +63,25 @@ public class MarkVShaney {
     public void readText(String text) {
         readText(
             new ByteArrayInputStream(
-                text.getBytes(StandardCharsets.UTF_8)));
+                text.getBytes(StandardCharsets.UTF_8)),
+            false);
     }
 
     /**
      * Reads all words from the given text and adds them to the Markov chain.
+     *
+     * @param includeSpaces If true, include surrounding whitespace in the words
+     *                      so that the Markov chain generates paragraph breaks.
      */
-    public void readText(InputStream text) {
+    public void readText(InputStream text, boolean includeSpaces) {
         // TODO: Create a ChainWalker attached to this MarkVShaney.
-        // TODO: Create a scanner using:  new Scanner(text, StandardCharsets.UTF_8)
-        //       ...and call its tokens() method to get a stream of words
-        //       ...and use the forEach() method of stream to call walker.addNext() on each word
+        // TODO: The code below creates a Scanner that respects the includeSpaces flag.
+        //       Call its tokens() method to get a stream of words,
+        //       and use the forEach() method of stream
+        //       to call walker.addNext() on each word
+
+        new Scanner(text, StandardCharsets.UTF_8)
+            .useDelimiter(includeSpaces ? "(?<!\\s)(?=\\s)" : "\\s+");
     }
 
     /**
@@ -104,10 +112,9 @@ public class MarkVShaney {
             "sense-and-sensibility"
         )) {
             System.out.println("Reading " + bookName);
-            mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
+            mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"), true);
         }
         mvs.generate()
-            .map(word -> word + " ")
             .limit(1000000)
             .forEach(System.out::print);
         System.out.println();
