@@ -119,7 +119,7 @@ public class MarkVShaney {
             mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
         }
         mvs.generate()
-            .limit(1000000)
+            .limit(2000)
             .forEach(System.out::print);
         System.out.println();
     }
