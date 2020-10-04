@@ -57,7 +57,7 @@ Next, start adding tests. There is one example there already to help you get sta
 Tests to add:
 
 - It **handles unrecognized context**: Given context that did not appear in the input text, `chooseNextWord` returns null. This is what happens at the end of the text.
-- It **handle the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text
+- It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text
 - It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two".
 - It **shifts words out of context**: After reading the text "one two three four",
   - it returns "four" for the context "two three", but
@@ -71,7 +71,3 @@ Tests to add:
 By the time you are done with these tests, you should have no more TODOs left in the source code!
 
 All passing? Try running the `MarkVShaney` class. Its main method reads the text several classic books and scrambles them!
-
-Note: IntelliJ might put each paragraph all on one line, with no line breaks. If you are seeing this, click the “soft wrap” button next to the output text:
-
-<img src="doc/images/line-wrap-off.png" width="48%"> <img src="doc/images/line-wrap-on.png" width="48%">
