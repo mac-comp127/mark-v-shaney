@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /**
  * A Markov chain text generator.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess","resource"})
 public class MarkVShaney {
     private final int contextSize;
     private final boolean includeWhitespace;
