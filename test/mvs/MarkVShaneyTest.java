@@ -15,6 +15,12 @@ class MarkVShaneyTest {
     private MarkVShaney mvs = new MarkVShaney(2, false);
 
 //    @Test
+//    void handlesUnrecognizedContext() {
+//        mvs.readText("Hello!");
+//        assertNull(mvs.chooseNextWord(List.of("Goodbye!")));
+//    }
+    
+//    @Test
 //    void handlesInitialContext() {
 //        mvs.readText("Hello there!");
 //        assertEquals("Hello", mvs.chooseNextWord(List.of()));

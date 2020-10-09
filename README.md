@@ -64,28 +64,29 @@ You only need to add a little code to get it working, but **you must add tests**
 
 First, study the existing code. Understand the classes and their relationships. Figure out how this object design is going to work.
 
-Next, start adding tests. There is one example there already to help you get started. Below are some more to write. As you add each one new test:
+Next, start adding tests. There are a few examples there already to help you get started. Use a test first process as you work through the list below:
 
-- Make sure the new test fails.
-- Implement just enough of the code to make it pass.
-- Make sure it passes.
+- Add the next test from the list below.
+- Make sure the new test fails in the way you expect it to fail. 🚨 **Don't skip this!** 🚨 Actually run the test, look at the error, and make sure it’s failing the way it should.
+- Implement just enough of the code that the test should pass.
+- **Run it** to make sure it passes.
 - Make sure **all** the older tests also still pass.
-- Then and only then move on to the next one.
+- Then and only then move on to the next item.
 
 Tests to add:
 
-- It **handles unrecognized context**: Given context that did not appear in the input text, `chooseNextWord` returns null. This is what happens at the end of the text.
-- It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text
-- It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two".
-- It **shifts words out of context**: After reading the text "one two three four",
+1. It **handles unrecognized context**: Given context that did not appear in the input text, `chooseNextWord` returns null. This is what happens at the end of the text. (We’ve given you this test commented out to help you get started.)
+2. It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text.  (We’ve also given you this test commented out.)
+3. It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two". (You’ll need to write the remained of these tests yourself.)
+4. It **shifts words out of context**: After reading the text "one two three four",
   - it returns "four" for the context "two three", but
   - returns null for the context "one two three".
-- It **respects the context size setting**: If you create a _new_ `MarkVShaney` object with a context size of 3 passed to the constructor, then after reading the text "one two three four",
+5. It **respects the context size setting**: If you create a _new_ `MarkVShaney` object with a context size of 3 passed to the constructor, then after reading the text "one two three four",
   - it returns "four" for the context "one two three", but
   - returns null for the context "two three".
-- It **handles multiple choices**: This is a tricky one to write, because you are testing random behavior. After reading the example text above, "Jack be nimble, Jack be quick", if you call `chooseNextWord` over and over for the context "Jack be", you should eventually see both "nimble" and "quick" (and nothing else).
-- It **generates text**: It is not feasible to fully test the random behavior of the text generation. However, you can test that given input text which always produces only one choice for a given context, it will always generate the input string. In other words, after reading the text "Coding up a storm", if you call `generateText` and collect the results to a list, you should get `List.of("Coding", "up", "a", "storm!")`.
+6. It **handles multiple choices**: This is a tricky one to write, because you are testing random behavior. After reading the example text above, "Jack be nimble, Jack be quick", if you call `chooseNextWord` over and over for the context "Jack be", you should eventually see both "nimble" and "quick" (and nothing else).
+7. It **generates text**: It is not feasible to fully test the random behavior of the text generation. However, you can test that given input text which always produces only one choice for a given context, it will always generate the input string. In other words, after reading the text "Coding up a storm", if you call `generateText` and collect the results to a list, you should get `List.of("Coding", "up", "a", "storm!")`.
 
 By the time you are done with these tests, you should have no more TODOs left in the source code!
 
-All passing? Try running the `MarkVShaney` class. Its main method reads the text several classic books and scrambles them!
+All passing? Try running the `MarkVShaney` class. Its main method reads the text of several classic books and scrambles them together!
