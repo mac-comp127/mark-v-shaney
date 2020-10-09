@@ -91,7 +91,7 @@ public class MarkVShaney {
     /**
      * Randomly generates text using the Markov chain.
      */
-    public Stream<String> generate() {
+    public Stream<String> generateText() {
         // TODO: Create a ChainWalker attached to this MarkVShaney.
         // TODO: Use the Stream.generate() method to stream the results of calling
         //       walker.chooseNext() over and over, then use takeWhile() to stop
@@ -118,7 +118,7 @@ public class MarkVShaney {
             System.out.println("Reading " + bookName);
             mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
         }
-        mvs.generate()
+        mvs.generateText()
             .limit(2000)
             .forEach(System.out::print);
         System.out.println();
