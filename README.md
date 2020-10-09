@@ -79,11 +79,11 @@ Tests to add:
 2. It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text.  (We’ve also given you this test commented out.)
 3. It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two". (You’ll need to write the remained of these tests yourself.)
 4. It **shifts words out of context**: After reading the text "one two three four",
-  - it returns "four" for the context "two three", but
-  - returns null for the context "one two three".
+    - it returns "four" for the context "two three", but
+    - returns null for the context "one two three".
 5. It **respects the context size setting**: If you create a _new_ `MarkVShaney` object with a context size of 3 passed to the constructor, then after reading the text "one two three four",
-  - it returns "four" for the context "one two three", but
-  - returns null for the context "two three".
+    - it returns "four" for the context "one two three", but
+    - returns null for the context "two three".
 6. It **handles multiple choices**: This is a tricky one to write, because you are testing random behavior. After reading the example text above, "Jack be nimble, Jack be quick", if you call `chooseNextWord` over and over for the context "Jack be", you should eventually see both "nimble" and "quick" (and nothing else).
 7. It **generates text**: It is not feasible to fully test the random behavior of the text generation. However, you can test that given input text which always produces only one choice for a given context, it will always generate the input string. In other words, after reading the text "Coding up a storm", if you call `generateText` and collect the results to a list, you should get `List.of("Coding", "up", "a", "storm!")`.
 
