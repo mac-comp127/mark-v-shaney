@@ -8,7 +8,10 @@ import java.util.*;
 import java.util.stream.Stream;
 
 /**
- * A Markov chain text generator.
+ * A Markov chain text generator. Holds a transition chain whose entries each say, “For these n
+ * words, the following words might appear next in the text.” You can populate the transition
+ * table with one of more calls to readText(), then use a call to generateText() to randomly
+ * create new text by choosing random options from the transition chain.
  */
 @SuppressWarnings({"WeakerAccess","resource"})
 public class MarkVShaney {
