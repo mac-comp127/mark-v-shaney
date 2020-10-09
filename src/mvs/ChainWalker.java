@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * A helper class for both building the Markov chain and generating text with it. Clients can either
- * repeatedly choose random words or pass in new words, and ChainWalker keeps track of the recently
- * added/generated words.
+ * repeatedly choose random words or pass in new words. As they do, ChainWalker keeps track of the
+ * current context (i.e the recently added/generated words).
  */
 class ChainWalker {
     private final MarkVShaney mvs;

@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class MarkVShaney {
     private final int contextSize;
     private final boolean includeWhitespace;
-    // TODO: Declare an instance variable chain that is:
+    // TODO: Declare an instance variable “transitions” that is:
     //       - a Map
     //       - with List<String> keys
     //       - and WordChoice values
