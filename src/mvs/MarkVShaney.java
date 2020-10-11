@@ -38,7 +38,6 @@ public class MarkVShaney {
     public MarkVShaney(int contextSize, boolean includeWhitespace) {
         this.contextSize = contextSize;
         this.includeWhitespace = includeWhitespace;
-
     }
 
     /**
@@ -135,7 +134,7 @@ public class MarkVShaney {
     public String toString() {
         return "MarkVShaney{"
             + "contextSize=" + contextSize
-//            + ", chain=" + chain  //TODO: uncomment when you've create the chain instance variable
+//            + ", transitions=" + transitions  //TODO: uncomment when you've create the chain instance variable
             + '}';
     }
 
