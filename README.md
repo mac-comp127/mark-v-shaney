@@ -84,7 +84,26 @@ Tests to add:
 5. It **respects the context size setting**: If you create a _new_ `MarkVShaney` object with a context size of 3 passed to the constructor, then after reading the text "one two three four",
     - it returns "four" for the context "one two three", but
     - returns null for the context "two three".
-6. It **handles multiple choices**: This is a tricky one to write, because you are testing random behavior. After reading the example text above, "Jack be nimble, Jack be quick", if you call `chooseNextWord` over and over for the context "Jack be", you should eventually see both "nimble" and "quick" (and nothing else).
+6. It **handles multiple choices**: This is a tricky one to test, because you are testing random behavior. After reading the example text above, "Jack be nimble, Jack be quick", if you call `chooseNextWord` over and over for the context "Jack be", you should eventually see both "nimble" and "quick" (and nothing else).
+
+    Stuck? Looking for alternatives? Here's an elegant way to do it with streams:
+    <details>
+      <summary>Expand for hint</summary>
+      
+      ```java
+      @Test
+      void handlesMultipleChoices() {
+          mvs.readText("Jack be nimble, Jack be quick");
+          Set<String> results = Stream
+              .generate(() -> mvs.chooseNextWord(   // Repeatedly make a random choice...
+                  List.of("Jack", "be")))           // ...for the next word after these two...
+              .limit(100)                           // ...100 times...
+              .collect(Collectors.toSet());         // ...and collect the unique results
+          assertEquals(Set.of("nimble,", "quick"), results);
+      }
+      ```
+    </details>
+
 7. It **generates text**: It is not feasible to fully test the random behavior of the text generation. However, you can test that given input text which always produces only one choice for a given context, it will always generate the input string. In other words, after reading the text "Coding up a storm", if you call `generateText` and collect the results to a list, you should get `List.of("Coding", "up", "a", "storm!")`.
 
 By the time you are done with these tests, you should have no more TODOs left in the source code!
