@@ -112,7 +112,8 @@ public class MarkVShaney {
                 .dropWhile(word -> !word.startsWith("––––––START––––––")).skip(1)
                 .takeWhile(word -> !word.startsWith("––––––END––––––"))
 
-                // Remove hard word wraps
+                // Convert line endings and remove hard word wraps
+                .map(word -> word.replaceAll("\\r(\\n)?", "\n"))
                 .map(word -> word.replaceFirst(" *\\n *$", " "));
         }
 
