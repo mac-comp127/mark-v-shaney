@@ -114,7 +114,6 @@ public class MarkVShaney {
         MarkVShaney mvs = new MarkVShaney(2, true);
         for (String bookName : List.of(
             "metamorphosis",
-            "moby-dick",
             "prince-and-pauper",
             "sense-and-sensibility"
         )) {
