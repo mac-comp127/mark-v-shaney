@@ -69,6 +69,20 @@ public class MarkVShaney {
     }
 
     /**
+     * Populates the transition table with the standard body of texts in the res/ directory.
+     */
+    public void readDefaultCorpus() {
+        for (String bookName : List.of(
+            "metamorphosis",
+            "prince-and-pauper",
+            "sense-and-sensibility"
+        )) {
+            System.out.println("Reading " + bookName);
+            readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
+        }
+    }
+
+    /**
      * Reads all words from the given text and adds them to the Markov chain.
      */
     public void readText(String text) {
@@ -112,16 +126,9 @@ public class MarkVShaney {
 
     public static void main(String[] args) throws IOException {
         MarkVShaney mvs = new MarkVShaney(2, true);
-        for (String bookName : List.of(
-            "metamorphosis",
-            "prince-and-pauper",
-            "sense-and-sensibility"
-        )) {
-            System.out.println("Reading " + bookName);
-            mvs.readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
-        }
+        mvs.readDefaultCorpus();
         mvs.generateText()
-            .limit(2000)
+            .limit(1000)
             .forEach(System.out::print);
         System.out.println();
     }
