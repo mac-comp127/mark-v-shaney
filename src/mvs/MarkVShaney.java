@@ -1,6 +1,9 @@
 package mvs;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -72,13 +75,14 @@ public class MarkVShaney {
      * Populates the transition table with the standard body of texts in the res/ directory.
      */
     public void readDefaultCorpus() {
-        for (String bookName : List.of(
-            "metamorphosis",
-            "prince-and-pauper",
-            "sense-and-sensibility"
-        )) {
-            System.out.println("Reading " + bookName);
-            readText(MarkVShaney.class.getResourceAsStream("/" + bookName + ".txt"));
+        for (File bookFile : new File("res").listFiles((dir, name) -> name.endsWith(".txt"))) {
+            System.out.println("Reading " + bookFile);
+            try {
+                readText(new FileInputStream(bookFile), true);
+            } catch (FileNotFoundException e) {
+                System.err.print("Cannot read " + bookFile + ": ");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,21 +92,31 @@ public class MarkVShaney {
     public void readText(String text) {
         readText(
             new ByteArrayInputStream(
-                text.getBytes(StandardCharsets.UTF_8)));
+                text.getBytes(StandardCharsets.UTF_8)),
+            false);
     }
 
     /**
      * Reads all words from the given text and adds them to the Markov chain.
      */
-    public void readText(InputStream text) {
+    public void readText(InputStream text, boolean fullBookFormat) {
         // TODO: Create a ChainWalker attached to this MarkVShaney.
-        // TODO: The code below creates a Scanner that respects the includeSpaces flag.
-        //       Call its tokens() method to get a stream of words,
-        //       and use the forEach() method of stream
-        //       to call walker.addNext() on each word
 
-        new Scanner(text, StandardCharsets.UTF_8)
-            .useDelimiter(includeWhitespace ? "(?<!\\s)(?=\\s)" : "\\s+");
+        Stream<String> stream = new Scanner(text, StandardCharsets.UTF_8)
+            // Split into words
+            .useDelimiter(includeWhitespace ? "(?<=\\s)(?!\\s)" : "\\s+").tokens();
+
+        if (fullBookFormat) {
+            stream = stream
+                // Skip header & footer
+                .dropWhile(word -> !word.startsWith("––––––START––––––")).skip(1)
+                .takeWhile(word -> !word.startsWith("––––––END––––––"))
+
+                // Remove hard word wraps
+                .map(word -> word.replaceFirst(" *\\n *$", " "));
+        }
+
+        // TODO: For each string in stream, call walker.addNext()
     }
 
     /**
