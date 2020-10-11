@@ -90,3 +90,8 @@ Tests to add:
 By the time you are done with these tests, you should have no more TODOs left in the source code!
 
 All passing? Try running the `MarkVShaney` class. Its main method reads the text of several classic books and scrambles them together!
+
+
+## Enjoy the fruits of your labor
+
+The `AnimatedTextApp` class (in the `mvs.animation` package) will use your `MarkVShaney` implementation to create a fancy-fun text generation visualization. Run it and enjoy! Hold down a key to create a text avalanche.

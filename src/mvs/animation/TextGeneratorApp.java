@@ -10,16 +10,18 @@ import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.GraphicsText;
 import mvs.MarkVShaney;
 
-public class AnimatedMarkVShaney {
+public class TextGeneratorApp {
     private static final int
         WINDOW_WIDTH = 800,
-        WINDOW_HEIGHT = 600;
+        WINDOW_HEIGHT = 2000;
     private static final double
         MARGIN = 10,
         FONT_SIZE = 20,
         SPACE_WIDTH = 6,
         LINE_SPACING = 30;
-    private static final double WORD_RATE = 0.15;
+    private static final double
+        NORMAL_WORD_RATE = 0.15,
+        FAST_WORD_RATE = 0.01;
 
     private Iterator<String> wordGenerator;
 
@@ -29,7 +31,7 @@ public class AnimatedMarkVShaney {
     private double timeUntilNextWord;
     private Color textColor;
 
-    public AnimatedMarkVShaney() {
+    public TextGeneratorApp() {
         MarkVShaney mvs = new MarkVShaney(2, true);
         mvs.readDefaultCorpus();
         wordGenerator = mvs.generateText().iterator();
@@ -45,7 +47,7 @@ public class AnimatedMarkVShaney {
             }
         });
 
-        nextWordY = WINDOW_HEIGHT / 2;
+        nextWordY = canvas.getHeight() / 2;
         newLine();
         randomizeTextColor();
     }
@@ -53,23 +55,20 @@ public class AnimatedMarkVShaney {
     private void generateWords(double dt) {
         timeUntilNextWord -= dt;
         while (timeUntilNextWord < 0 && wordGenerator.hasNext()) {
-            timeUntilNextWord += WORD_RATE;
+            timeUntilNextWord += canvas.getKeysPressed().isEmpty() ? NORMAL_WORD_RATE : FAST_WORD_RATE;
             showWord(wordGenerator.next());
         }
     }
 
     private void showWord(String word) {
-        if (word.contains("\n")) {
-            newLine();
-            randomizeTextColor();
-            nextWordX += MARGIN * 3;
-        }
-
         GraphicsText wordGraphics = new GraphicsText(word.trim());
         wordGraphics.setFontSize(FONT_SIZE);
         wordGraphics.setFillColor(textColor);
         wordGraphics.setY(canvas.getHeight());
-        FlyUpAnimation animation = new FlyUpAnimation(wordGraphics, 0.004 * Math.pow(word.length(), 1.5), 5);
+        FlyUpAnimation animation = new FlyUpAnimation(
+            wordGraphics,
+            Math.min(0.5, 0.004 * Math.pow(word.length(), 1.5)),  // longer words float up more slowly
+            5);
         canvas.add(animation);
         wordAnimations.add(animation);
 
@@ -78,6 +77,12 @@ public class AnimatedMarkVShaney {
         }
         animation.setPosition(nextWordX, nextWordY);
         nextWordX += wordGraphics.getWidth() + SPACE_WIDTH;
+
+        if (word.contains("\n")) {
+            newLine();
+            randomizeTextColor();
+            nextWordX += MARGIN * 3;
+        }
     }
 
     private void newLine() {
@@ -103,6 +108,6 @@ public class AnimatedMarkVShaney {
     }
 
     public static void main(String[] args) {
-        new AnimatedMarkVShaney();
+        new TextGeneratorApp();
     }
 }
