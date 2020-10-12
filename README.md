@@ -76,7 +76,7 @@ Next, start adding tests. There are a few examples there already to help you get
 Tests to add:
 
 1. It **handles unrecognized context**: Given context that did not appear in the input text, `chooseNextWord` returns null. This is what happens at the end of the text. (We’ve given you this test commented out to help you get started.)
-2. It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text.  (We’ve also given you this test commented out.)
+2. It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text. (We’ve also given you this test commented out.) To get this one working, you will need to complete quite a few of the TODOs. You’ll need to trace through how the code works to find them all.
 3. It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two". (You’ll need to write the remained of these tests yourself.)
 4. It **shifts words out of context**: After reading the text "one two three four",
     - it returns "four" for the context "two three", but
@@ -104,7 +104,7 @@ Tests to add:
       ```
     </details>
 
-7. It **generates text**: It is not feasible to fully test the random behavior of the text generation. However, you can test that given input text which always produces only one choice for a given context, it will always generate the input string. In other words, after reading the text "Coding up a storm", if you call `generateText` and collect the results to a list, you should get `List.of("Coding", "up", "a", "storm!")`.
+7. It **generates text**: It is not feasible to fully test the random behavior of the text generation. However, you can test that given input text which always produces only one choice for a given context, it will always generate the input string. In other words, after reading the text "Coding up a storm!", if you call `generateText` and collect the results to a list, you should get `List.of("Coding", "up", "a", "storm!")`.
 
 By the time you are done with these tests, you should have no more TODOs left in the source code!
 
