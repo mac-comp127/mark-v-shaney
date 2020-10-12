@@ -54,7 +54,7 @@ public class MarkVShaney {
         // TODO: Find the existing WordChoice for the given context.
         //       If there is not one already:
         //       - create it and
-        //       - add it to the chain, using List.copyOf() to make
+        //       - add it to the transitions, using List.copyOf() to make
         //         an unmodifiable defensive copy of the context.
         //       Now add nextWord to the WordChoice object you found/created.
     }
@@ -134,7 +134,7 @@ public class MarkVShaney {
     public String toString() {
         return "MarkVShaney{"
             + "contextSize=" + contextSize
-//            + ", transitions=" + transitions  //TODO: uncomment when you've create the chain instance variable
+//            + ", transitions=" + transitions  //TODO: uncomment when you've create the transitions instance variable
             + '}';
     }
 
