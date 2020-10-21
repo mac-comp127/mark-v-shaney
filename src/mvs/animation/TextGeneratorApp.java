@@ -17,8 +17,7 @@ public class TextGeneratorApp {
     private static final double
         MARGIN = 10,
         FONT_SIZE = 20,
-        SPACE_WIDTH = 6,
-        LINE_SPACING = 30;
+        SPACE_WIDTH = 6;
     private static final double
         NORMAL_WORD_RATE = 0.15,
         FAST_WORD_RATE = 0.01;
@@ -29,6 +28,7 @@ public class TextGeneratorApp {
     private List<FlyUpAnimation> wordAnimations = new LinkedList<>();
     private double nextWordX, nextWordY;
     private double timeUntilNextWord;
+    private double lineHeight;
     private Color textColor;
 
     public TextGeneratorApp() {
@@ -72,11 +72,12 @@ public class TextGeneratorApp {
         canvas.add(animation);
         wordAnimations.add(animation);
 
-        if (nextWordX + wordGraphics.getWidth() > canvas.getWidth() - MARGIN) {
+        lineHeight = wordGraphics.getLineHeight();
+        if (nextWordX + wordGraphics.getAdvance() > canvas.getWidth() - MARGIN) {
             newLine();
         }
         animation.setPosition(nextWordX, nextWordY);
-        nextWordX += wordGraphics.getWidth() + SPACE_WIDTH;
+        nextWordX += wordGraphics.getAdvance() + SPACE_WIDTH;
 
         if (word.contains("\n")) {
             newLine();
@@ -87,7 +88,7 @@ public class TextGeneratorApp {
 
     private void newLine() {
         nextWordX = MARGIN;
-        nextWordY += LINE_SPACING;
+        nextWordY += lineHeight;
     }
 
     private void randomizeTextColor() {
@@ -95,7 +96,7 @@ public class TextGeneratorApp {
     }
 
     private void scroll(double dt) {
-        double progress = (nextWordY + nextWordX / canvas.getWidth() * LINE_SPACING) / canvas.getHeight();
+        double progress = (nextWordY + nextWordX / canvas.getWidth() * lineHeight) / canvas.getHeight();
         double dy = -dt * Math.max(0, Math.pow(2, progress - 0.7) - 1) * canvas.getHeight();
         nextWordY += dy;
         for (GraphicsObject word : wordAnimations) {
