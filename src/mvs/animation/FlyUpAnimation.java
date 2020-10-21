@@ -18,5 +18,6 @@ public class FlyUpAnimation extends GraphicsGroup {
         content.setY(
             Math.max(0,
                 content.getY() * Math.pow(flyRate, dt) - minSpeed * dt));
+        content.setRotation(content.getRotation() * Math.pow(flyRate, dt));
     }
 }

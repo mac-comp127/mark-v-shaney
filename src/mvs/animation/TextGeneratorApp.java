@@ -65,6 +65,7 @@ public class TextGeneratorApp {
         wordGraphics.setFontSize(FONT_SIZE);
         wordGraphics.setFillColor(textColor);
         wordGraphics.setY(canvas.getHeight());
+        wordGraphics.setRotation(Math.pow(Math.random(), 10) * 1000);
         FlyUpAnimation animation = new FlyUpAnimation(
             wordGraphics,
             Math.min(0.5, 0.004 * Math.pow(word.length(), 1.5)),  // longer words float up more slowly
