@@ -77,7 +77,7 @@ Tests to add:
 
 1. It **handles unrecognized context**: Given context that did not appear in the input text, `chooseNextWord` returns null. This is what happens at the end of the text. (We’ve given you this test commented out to help you get started.)
 2. It **handles the initial context**: After reading the text "Hello there!", it returns "Hello" for an empty context, and "there!" for the context "Hello". This is what happens at the beginning of the text. (We’ve also given you this test commented out.) To get this one working, you will need to complete quite a few of the TODOs. You’ll need to trace through how the code works to find them all.
-3. It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two". (You’ll need to write the remained of these tests yourself.)
+3. It **handles multi-word context**: After reading the text "one two three", it returns "three" for the context "one two". (You’ll need to write the remainder of these tests yourself.)
 4. It **shifts words out of context**: After reading the text "one two three four",
     - it returns "four" for the context "two three", but
     - returns null for the context "one two three".
