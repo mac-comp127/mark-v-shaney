@@ -102,7 +102,7 @@ public class TextGeneratorApp {
         nextWordY += dy;
         for (GraphicsObject word : wordAnimations) {
             word.moveBy(0, dy);
-            if (word.getBounds().getMaxY() < 0) {
+            if (word.getBoundsInParent().getMaxY() < 0) {
                 canvas.remove(word);
             }
         }
