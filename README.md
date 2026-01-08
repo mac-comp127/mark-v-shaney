@@ -88,7 +88,7 @@ Tests to add:
 
     Stuck? Looking for alternatives? Here's an elegant way to do it with streams:
     <details>
-      <summary>Expand for hint</summary>
+      <summary>🔹 Expand for hint</summary>
       
       ```java
       @Test
